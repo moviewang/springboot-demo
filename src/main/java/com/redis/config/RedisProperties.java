@@ -12,6 +12,8 @@ public class RedisProperties {
     private Integer min;
     @Value("${redis.max}")
     private Integer max;
+    @Value("${redis.random.num}")
+    private Integer num;
 
     public Integer getMin() {
         return min;
@@ -27,5 +29,13 @@ public class RedisProperties {
 
     public void setMax(Integer max) {
         this.max = max;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
     }
 }

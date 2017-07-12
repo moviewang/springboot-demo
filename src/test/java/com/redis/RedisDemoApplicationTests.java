@@ -46,4 +46,9 @@ public class RedisDemoApplicationTests {
 	public void propertiesTest() {
 		Assert.assertEquals(1, redisProperties.getMax().intValue());
 	}
+
+	@Test
+	public void propertiesRandomTest() {
+		Assert.assertNotEquals(0, redisProperties.getNum().intValue());
+	}
 }
