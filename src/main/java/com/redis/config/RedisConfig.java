@@ -13,7 +13,6 @@ import org.springframework.data.redis.core.RedisTemplate;
  * Created by Movie on 2017/7/7.
  */
 @Configuration
-
 public class RedisConfig {
     @Bean
     @ConfigurationProperties(prefix = "spring.redis")
