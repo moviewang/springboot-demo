@@ -2,10 +2,11 @@ package com.redis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
+@EnableAsync
 public class RedisDemoApplication {
 
     public static void main(String[] args) {
