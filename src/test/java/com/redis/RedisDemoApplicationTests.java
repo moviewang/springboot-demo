@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.Future;
 
 @RunWith(SpringRunner.class)
@@ -55,7 +58,7 @@ public class RedisDemoApplicationTests {
 //	public void propertiesRandomTest() {
 //		Assert.assertNotEquals(0, redisProperties.getNum().intValue());
 //	}
-	@Test
+//	@Test
 	public void  testTask() {
 		try {
 			long start = System.currentTimeMillis();
@@ -75,5 +78,37 @@ public class RedisDemoApplicationTests {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	public void testRedis() {
+		Set<ZSetOperations.TypedTuple<User>> set = new HashSet<>();
+		User user = new User("zhangsan", 11);
+		User user1 = new User("zhangsan1", 12);
+		User user2 = new User("zhangsan2", 11);
+		User user3 = new User("zhangsan3", 13);
+		User user4 = new User("zhangsan4", 114);
+
+		long start = System.currentTimeMillis();
+        System.out.println("max:" + Long.MAX_VALUE);
+        redisTemplate.opsForZSet().add("feed", user, 1);
+		redisTemplate.opsForZSet().add("feed", user1, 3);
+		redisTemplate.opsForZSet().add("feed", user2, 2);
+		redisTemplate.opsForZSet().add("feed", user3, 6);
+		redisTemplate.opsForZSet().add("feed", user4, 5);
+
+		Long length = redisTemplate.opsForZSet().zCard("feed");
+        Set<ZSetOperations.TypedTuple<User>> tupleSet = redisTemplate.opsForZSet().reverseRangeWithScores("feed", 0, -1);
+
+        for (ZSetOperations.TypedTuple<User> userTypedTuple : tupleSet) {
+            System.out.println(userTypedTuple.toString());
+        }
+
+        Double score = redisTemplate.opsForZSet().score("feed", user1);
+        System.out.println("score" + score);
+        System.out.println(length);
+
+
+
 	}
 }
