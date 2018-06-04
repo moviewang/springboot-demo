@@ -15,7 +15,7 @@ public class PlainEchoServer {
             try {
                 Socket client = serverSocket.accept();
                 System.out.println("Accepted connection from " + client);
-//                new Thread(() -> {
+                new Thread(() -> {
                     try {
                         DataInputStream dis = new DataInputStream(new BufferedInputStream(client.getInputStream()));
                         DataOutputStream dos = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
@@ -37,7 +37,7 @@ public class PlainEchoServer {
                             }
                         }
                     }
-//                }).start();
+                }).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }
