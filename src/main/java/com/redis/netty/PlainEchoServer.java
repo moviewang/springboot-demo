@@ -25,7 +25,7 @@ public class PlainEchoServer {
                         String line = dis.readUTF();
                         System.out.println("server reply :" + line);
 //                        pw.println("server reply" + line);
-                        dos.writeUTF(line);
+                        dos.writeUTF("pong");
                         dos.flush();
                     } catch (IOException e) {
                         e.printStackTrace();

@@ -19,7 +19,7 @@ public class PlainEchoClient {
 //            BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
 //            String line = reader.readLine();
             DataOutputStream dos = new DataOutputStream(client.getOutputStream());
-            dos.writeUTF("thks connect to me");
+            dos.writeUTF("ping");
             dos.flush();
             System.out.println(dis.readUTF());
 //            printWriter.close();
