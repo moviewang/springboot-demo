@@ -15,11 +15,13 @@ public class PlainEchoClient {
 //            printWriter.write("hello server :");
 //            printWriter.flush();
             DataInputStream dis = new DataInputStream(client.getInputStream());
-            System.out.println(dis.readUTF());
+//            System.out.println(dis.readUTF());
 //            BufferedReader reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
 //            String line = reader.readLine();
             DataOutputStream dos = new DataOutputStream(client.getOutputStream());
             dos.writeUTF("thks connect to me");
+            dos.flush();
+            System.out.println(dis.readUTF());
 //            printWriter.close();
 //            reader.close();
             client.close();

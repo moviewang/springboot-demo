@@ -12,27 +12,35 @@ public class PlainEchoServer {
     public void server(int port) throws IOException {
         ServerSocket serverSocket = new ServerSocket(port);
         while (true) {
-            Socket client = serverSocket.accept();
-            System.out.println("Accepted connection from " + client);
-            new Thread(() -> {
-                try {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    PrintWriter pw = new PrintWriter(client.getOutputStream(), true);
-                    String line = br.readLine();
-                    System.out.println("server reply :" + line);
-                    pw.print("server reply" + line);
-                    pw.flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    if (client != null) {
-                        try {
-                            client.close();
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
+            try {
+                Socket client = serverSocket.accept();
+                System.out.println("Accepted connection from " + client);
+//                new Thread(() -> {
+                    try {
+                        DataInputStream dis = new DataInputStream(new BufferedInputStream(client.getInputStream()));
+                        DataOutputStream dos = new DataOutputStream(new BufferedOutputStream(client.getOutputStream()));
+
+//                        BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                        PrintWriter pw = new PrintWriter(client.getOutputStream(), true);
+                        String line = dis.readUTF();
+                        System.out.println("server reply :" + line);
+//                        pw.println("server reply" + line);
+                        dos.writeUTF(line);
+                        dos.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        if (client != null) {
+                            try {
+                                client.close();
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
                         }
                     }
-                }
-            }).start();
+//                }).start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
